@@ -3,6 +3,10 @@ DerivedDataCache
 Intermediate
 Saved
 Build
+**/Geometry
+**/Mannequin
+**/ThirdPerson
+**/ThirdPersonBP
 .vscode
 .vs
 *.VC.db
