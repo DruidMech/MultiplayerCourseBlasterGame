@@ -7,6 +7,9 @@ Build
 **/Mannequin
 **/ThirdPerson
 **/ThirdPersonBP
+**/LearningKit_Games
+**/MilitaryWeapSilver
+**/AnimStarterPack
 .vscode
 .vs
 *.VC.db
