@@ -12,6 +12,9 @@ Build
 **/AnimStarterPack
 **/Mixamo
 **/Animations
+**/StarterContent
+**/MarketplaceAssets
+**/BlasterMapMeshes
 .vscode
 .vs
 *.VC.db
