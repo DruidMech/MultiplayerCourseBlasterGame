@@ -15,6 +15,7 @@ Build
 **/StarterContent
 **/MarketplaceAssets
 **/BlasterMapMeshes
+
 .vscode
 .vs
 *.VC.db
