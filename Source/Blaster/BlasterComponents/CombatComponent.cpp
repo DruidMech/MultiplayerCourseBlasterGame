@@ -110,6 +110,10 @@ void UCombatComponent::FireTimerFinished()
 	{
 		Fire();
 	}
+	if (EquippedWeapon->IsEmpty())
+	{
+		Reload();
+	}
 }
 
 void UCombatComponent::ServerFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
@@ -162,6 +166,11 @@ void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 			EquippedWeapon->EquipSound,
 			Character->GetActorLocation()
 		);
+	}
+
+	if (EquippedWeapon->IsEmpty())
+	{
+		Reload();
 	}
 
 	Character->GetCharacterMovement()->bOrientRotationToMovement = false;
