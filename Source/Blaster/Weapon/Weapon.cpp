@@ -257,7 +257,6 @@ void AWeapon::Fire(const FVector& HitTarget)
 	{
 		SpendRound();
 	}
-
 }
 
 void AWeapon::Dropped()
