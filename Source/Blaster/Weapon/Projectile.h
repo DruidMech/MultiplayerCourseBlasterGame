@@ -16,6 +16,17 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void Destroyed() override;
 
+	/** 
+	* Used with server-side rewind
+	*/
+
+	bool bUseServerSideRewind = false;
+	FVector_NetQuantize TraceStart;
+	FVector_NetQuantize100 InitialVelocity;
+
+	UPROPERTY(EditAnywhere)
+	float InitialSpeed = 15000;
+
 protected:
 	virtual void BeginPlay() override;
 	void StartDestroyTimer();
