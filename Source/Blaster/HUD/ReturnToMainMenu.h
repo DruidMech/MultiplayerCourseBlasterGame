@@ -7,7 +7,7 @@
 #include "ReturnToMainMenu.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class BLASTER_API UReturnToMainMenu : public UUserWidget
@@ -22,6 +22,9 @@ protected:
 
 	UFUNCTION()
 	void OnDestroySession(bool bWasSuccessful);
+
+	UFUNCTION()
+	void OnPlayerLeftGame();
 
 private:
 	UPROPERTY(meta = (BindWidget))

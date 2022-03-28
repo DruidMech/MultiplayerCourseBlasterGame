@@ -10,6 +10,8 @@
 #include "Blaster/BlasterTypes/CombatState.h"
 #include "BlasterCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnLeftGame);
+
 UCLASS()
 class BLASTER_API ABlasterCharacter : public ACharacter, public IInteractWithCrosshairsInterface
 {
@@ -22,7 +24,7 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void PostInitializeComponents() override;
 
-	/** 
+	/**
 	* Play montages
 	*/
 	void PlayFireMontage(bool bAiming);
@@ -32,9 +34,9 @@ public:
 	void PlaySwapMontage();
 
 	virtual void OnRep_ReplicatedMovement() override;
-	void Elim();
+	void Elim(bool bPlayerLeftGame);
 	UFUNCTION(NetMulticast, Reliable)
-	void MulticastElim();
+	void MulticastElim(bool bPlayerLeftGame);
 	virtual void Destroyed() override;
 
 	UPROPERTY(Replicated)
@@ -53,6 +55,11 @@ public:
 	TMap<FName, class UBoxComponent*> HitCollisionBoxes;
 
 	bool bFinishedSwapping = false;
+
+	UFUNCTION(Server, Reliable)
+	void ServerLeaveGame();
+
+	FOnLeftGame OnLeftGame;
 
 protected:
 	virtual void BeginPlay() override;
@@ -83,7 +90,7 @@ protected:
 	void PollInit();
 	void RotateInPlace(float DeltaTime);
 
-	/** 
+	/**
 	* Hit boxes used for server-side rewind
 	*/
 
@@ -157,7 +164,7 @@ private:
 	UFUNCTION()
 	void OnRep_OverlappingWeapon(AWeapon* LastWeapon);
 
-	/** 
+	/**
 	* Blaster components
 	*/
 
@@ -181,7 +188,7 @@ private:
 	ETurningInPlace TurningInPlace;
 	void TurnInPlace(float DeltaTime);
 
-	/** 
+	/**
 	* Animation montages
 	*/
 
@@ -229,7 +236,7 @@ private:
 	UFUNCTION()
 	void OnRep_Health(float LastHealth);
 
-	/** 
+	/**
 	* Player shield
 	*/
 
@@ -253,6 +260,8 @@ private:
 	float ElimDelay = 3.f;
 
 	void ElimTimerFinished();
+
+	bool bLeftGame = false;
 
 	/**
 	* Dissolve effect
@@ -293,21 +302,21 @@ private:
 	UPROPERTY()
 	class ABlasterPlayerState* BlasterPlayerState;
 
-	/** 
+	/**
 	* Grenade
 	*/
 
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* AttachedGrenade;
 
-	/** 
+	/**
 	* Default weapon
 	*/
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AWeapon> DefaultWeaponClass;
 
-public:	
+public:
 	void SetOverlappingWeapon(AWeapon* Weapon);
 	bool IsWeaponEquipped();
 	bool IsAiming();
