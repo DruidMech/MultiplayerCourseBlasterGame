@@ -217,7 +217,7 @@ void AWeapon::OnEquipped()
 	EnableCustomDepth(false);
 
 	BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr ? Cast<ABlasterCharacter>(GetOwner()) : BlasterOwnerCharacter;
-	if (BlasterOwnerCharacter)
+	if (BlasterOwnerCharacter && bUseServerSideRewind)
 	{
 		BlasterOwnerController = BlasterOwnerController == nullptr ? Cast<ABlasterPlayerController>(BlasterOwnerCharacter->Controller) : BlasterOwnerController;
 		if (BlasterOwnerController && HasAuthority() && !BlasterOwnerController->HighPingDelegate.IsBound())

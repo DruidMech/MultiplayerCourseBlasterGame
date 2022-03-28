@@ -27,7 +27,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	float InitialSpeed = 15000;
 
-	float Damage = 20.f;
+	float Damage = 120.f;
 
 protected:
 	virtual void BeginPlay() override;
