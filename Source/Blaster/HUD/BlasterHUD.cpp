@@ -5,10 +5,25 @@
 #include "GameFramework/PlayerController.h"
 #include "CharacterOverlay.h"
 #include "Announcement.h"
+#include "ElimAnnouncement.h"
 
 void ABlasterHUD::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ABlasterHUD::AddElimAnnouncement(FString Attacker, FString Victim)
+{
+	OwningPlayer = OwningPlayer == nullptr ? GetOwningPlayerController() : OwningPlayer;
+	if (OwningPlayer && ElimAnnouncementClass)
+	{
+		UElimAnnouncement* ElimAnouncementWidget = CreateWidget<UElimAnnouncement>(OwningPlayer, ElimAnnouncementClass);
+		if (ElimAnouncementWidget)
+		{
+			ElimAnouncementWidget->SetElimAnnouncementText(Attacker, Victim);
+			ElimAnouncementWidget->AddToViewport();
+		}
+	}
 }
 
 void ABlasterHUD::AddCharacterOverlay()
