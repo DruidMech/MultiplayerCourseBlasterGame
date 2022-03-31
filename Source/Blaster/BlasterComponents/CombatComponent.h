@@ -244,6 +244,9 @@ private:
 	UFUNCTION()
 	void OnRep_HoldingTheFlag();
 
+	UPROPERTY()
+	AWeapon* TheFlag;
+
 public:	
 	FORCEINLINE int32 GetGrenades() const { return Grenades; }
 	bool ShouldSwapWeapons();
