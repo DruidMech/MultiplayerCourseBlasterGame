@@ -59,5 +59,6 @@ private:
 
 	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	FString MatchType{TEXT("FreeForAll")};
+
 	FString PathToLobby{TEXT("")};
 };
