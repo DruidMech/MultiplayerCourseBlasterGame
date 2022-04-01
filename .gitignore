@@ -3,13 +3,6 @@ DerivedDataCache
 Intermediate
 Saved
 Build
-**/Geometry
-**/Mannequin
-**/ThirdPerson
-**/ThirdPersonBP
-**/LearningKit_Games
-**/MilitaryWeapSilver
-**/StarterContent
 
 .vscode
 .vs
