@@ -96,6 +96,9 @@ private:
 	UPROPERTY()
 	class ABlasterHUD* BlasterHUD;
 
+	UPROPERTY()
+	class ABlasterGameMode* BlasterGameMode;
+
 	/** 
 	* Return to main menu
 	*/
