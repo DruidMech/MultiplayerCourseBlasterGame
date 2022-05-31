@@ -413,10 +413,7 @@ void ABlasterCharacter::SetTeamColor(ETeam Team)
 void ABlasterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	SpawDefaultWeapon();
-	UpdateHUDAmmo();
-	UpdateHUDHealth();
-	UpdateHUDShield();
+
 	if (HasAuthority())
 	{
 		OnTakeAnyDamage.AddDynamic(this, &ABlasterCharacter::ReceiveDamage);
@@ -1013,6 +1010,17 @@ void ABlasterCharacter::PollInit()
 			{
 				MulticastGainedTheLead();
 			}
+		}
+	}
+	if (BlasterPlayerController == nullptr)
+	{
+		BlasterPlayerController = BlasterPlayerController == nullptr ? Cast<ABlasterPlayerController>(Controller) : BlasterPlayerController;
+		if (BlasterPlayerController)
+		{
+			SpawDefaultWeapon();
+			UpdateHUDAmmo();
+			UpdateHUDHealth();
+			UpdateHUDShield();
 		}
 	}
 }
