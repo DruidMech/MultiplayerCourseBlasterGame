@@ -21,7 +21,9 @@ public:
 protected:
 
 	virtual bool Initialize() override;
-	virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
+	// UE5.1 is abandon
+	//virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
+	virtual void NativeDestruct() override;
 
 	//
 	// Callbacks for the custom delegates on the MultiplayerSessionsSubsystem
