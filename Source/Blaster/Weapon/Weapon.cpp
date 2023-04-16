@@ -117,15 +117,29 @@ void AWeapon::SetHUDAmmo()
 void AWeapon::SpendRound()
 {
 	Ammo = FMath::Clamp(Ammo - 1, 0, MagCapacity);
-	SetHUDAmmo();
-	if (HasAuthority())
-	{
-		ClientUpdateAmmo(Ammo);
-	}
-	else
-	{
-		++Sequence;
-	}
+    //need to access player controller to change the ammo on the hud
+    //weapon will spend rounds very quickly
+    //instead of getting theowner and casting it to a blaster character over and over
+    //make a variable for the character & controller
+
+    SetHUDAmmo();
+
+    /*
+     * We're setting ammo locally, but because we're firing a round both on client and server
+     * it'll be set on the server too
+     * if we're on the server, we need to send that info to client
+     * so te client knows the authoritative value of ammo
+     */
+
+    if (HasAuthority())
+    {
+        ClientUpdateAmmo(Ammo);
+    }
+    else if (BlasterOwnerCharacter && BlasterOwnerCharacter->IsLocallyControlled())
+    {
+        /*We've just spend a round and the server's replication of it hasn't yet reached us*/
+        Sequence++;
+    }
 }
 
 void AWeapon::ClientUpdateAmmo_Implementation(int32 ServerAmmo)
