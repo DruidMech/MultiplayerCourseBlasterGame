@@ -288,6 +288,7 @@ void ULagCompensationComponent::CacheBoxPositions(ABlasterCharacter* HitCharacte
 	}
 }
 
+/*
 void ULagCompensationComponent::MoveBoxes(ABlasterCharacter* HitCharacter, const FFramePackage& Package)
 {
 	if (HitCharacter == nullptr) return;
@@ -300,8 +301,30 @@ void ULagCompensationComponent::MoveBoxes(ABlasterCharacter* HitCharacter, const
 			HitBoxPair.Value->SetBoxExtent(Package.HitBoxInfo[HitBoxPair.Key].BoxExtent);
 		}
 	}
+}*/
+
+void ULagCompensationComponent::MoveBoxes(ABlasterCharacter* HitCharacter, const FFramePackage& FramePackage)
+{
+	for (TTuple<FName, UBoxComponent*>& HitBoxPair : HitCharacter->HitCollisionBoxes)
+	{
+
+		if (HitBoxPair.Value != nullptr)
+		{
+
+			const FBoxInformation* BoxValue = FramePackage.HitBoxInfo.Find(HitBoxPair.Key);
+
+			if (BoxValue)
+			{
+				HitBoxPair.Value->SetWorldLocation(BoxValue->Location);
+				HitBoxPair.Value->SetWorldRotation(BoxValue->Rotation);
+				HitBoxPair.Value->SetBoxExtent(BoxValue->BoxExtent);
+			}
+
+		}
+	}
 }
 
+/*
 void ULagCompensationComponent::ResetHitBoxes(ABlasterCharacter* HitCharacter, const FFramePackage& Package)
 {
 	if (HitCharacter == nullptr) return;
@@ -313,6 +336,26 @@ void ULagCompensationComponent::ResetHitBoxes(ABlasterCharacter* HitCharacter, c
 			HitBoxPair.Value->SetWorldRotation(Package.HitBoxInfo[HitBoxPair.Key].Rotation);
 			HitBoxPair.Value->SetBoxExtent(Package.HitBoxInfo[HitBoxPair.Key].BoxExtent);
 			HitBoxPair.Value->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		}
+	}
+}*/
+void ULagCompensationComponent::ResetHitBoxes(ABlasterCharacter* HitCharacter, const FFramePackage& FramePackage)
+{
+	if (HitCharacter == nullptr) return;
+
+	for (TTuple<FName, UBoxComponent*>& HitBoxPair : HitCharacter->HitCollisionBoxes)
+	{
+		if (HitBoxPair.Value != nullptr)
+		{
+			const FBoxInformation* BoxValue = FramePackage.HitBoxInfo.Find(HitBoxPair.Key);
+
+			if (BoxValue)
+			{
+				HitBoxPair.Value->SetWorldLocation(BoxValue->Location);
+				HitBoxPair.Value->SetWorldRotation(BoxValue->Rotation);
+				HitBoxPair.Value->SetBoxExtent(BoxValue->BoxExtent);
+				HitBoxPair.Value->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			}
 		}
 	}
 }

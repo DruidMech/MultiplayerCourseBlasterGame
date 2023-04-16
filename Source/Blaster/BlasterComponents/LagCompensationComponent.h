@@ -9,6 +9,13 @@
 USTRUCT(BlueprintType)
 struct FBoxInformation
 {
+	// Constructor
+	FBoxInformation()
+		: Location(0.0f, 0.0f, 0.0f)
+		, Rotation(0.0f, 0.0f, 0.0f)
+		, BoxExtent(0.0f, 0.0f, 0.0f)
+	{
+	}
 	GENERATED_BODY()
 
 	UPROPERTY()
@@ -19,11 +26,21 @@ struct FBoxInformation
 
 	UPROPERTY()
 	FVector BoxExtent;
+
+	
 };
 
 USTRUCT(BlueprintType)
 struct FFramePackage
 {
+
+	// Constructor
+	FFramePackage()
+		: Time(0.0f)
+		, Character(nullptr)
+	{
+	}
+
 	GENERATED_BODY()
 
 	UPROPERTY()
@@ -34,11 +51,14 @@ struct FFramePackage
 
 	UPROPERTY()
 	ABlasterCharacter* Character;
+
+	
 };
 
 USTRUCT(BlueprintType)
 struct FServerSideRewindResult
 {
+	
 	GENERATED_BODY()
 
 	UPROPERTY()
@@ -46,11 +66,16 @@ struct FServerSideRewindResult
 
 	UPROPERTY()
 	bool bHeadShot;
+
 };
 
 USTRUCT(BlueprintType)
 struct FShotgunServerSideRewindResult
 {
+	// Constructor
+	FShotgunServerSideRewindResult()
+	{
+	}
 	GENERATED_BODY()
 
 	UPROPERTY()
@@ -58,6 +83,8 @@ struct FShotgunServerSideRewindResult
 
 	UPROPERTY()
 	TMap<ABlasterCharacter*, uint32> BodyShots;
+
+	
 
 };
 
